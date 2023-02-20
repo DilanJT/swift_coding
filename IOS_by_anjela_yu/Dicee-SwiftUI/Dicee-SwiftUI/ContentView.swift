@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
+    // @State allow us to update the variable
+    // Without @state any variable inside struct is not mutable (or changed)
     @State var leftDiceNumber = 1
-    var rightDiceNumber = 1
+    @State var rightDiceNumber = 1
     
     var body: some View {
         ZStack {
@@ -32,7 +34,9 @@ struct ContentView: View {
                 Spacer()
                 
                 Button{
-                    
+                    // below code generates a random number between 1 and 6 including the boundaries
+                    self.leftDiceNumber = Int.random(in: 1...6)
+                    self.rightDiceNumber = Int.random(in: 1...6)
                 }label: {
                     Text("Roll")
                         .font(.system(size: 50))
