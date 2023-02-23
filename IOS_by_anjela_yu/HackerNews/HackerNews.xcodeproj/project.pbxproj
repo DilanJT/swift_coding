@@ -102,7 +102,7 @@
 			children = (
 				FD8C0F0C29A36D2B001A7189 /* Models */,
 				FD8C0EE229A365A3001A7189 /* HackerNewsApp.swift */,
-				FD8C0EE429A365A3001A7189 /* ContentView.swift */,
+				FD9DD92929A78B6D00814039 /* Views */,
 				FD8C0EE629A365A4001A7189 /* Assets.xcassets */,
 				FD8C0EE829A365A4001A7189 /* Preview Content */,
 			);
@@ -141,6 +141,14 @@
 				FD9DD92729A7830800814039 /* NetworkManager.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		FD9DD92929A78B6D00814039 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FD8C0EE429A365A3001A7189 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var networkManager = NetworkManager()
+    
     var body: some View {
         NavigationView {
             // For every single post in posts array Iam going to use Text component to pass the title propoerty of each post object
-            List(posts) { post in
-                Text(post.title)
+            List(networkManager.posts) { post in
+                HStack {
+                    Text(String(post.points))
+                    Text(post.title)
+                }
             }.navigationTitle("Hacker News")
             
+        }
+        .onAppear {
+            self.networkManager.fetchData()
         }
     }
 }
@@ -32,11 +41,11 @@ struct ContentView_Previews: PreviewProvider {
 //    let title: String
 //}
 
-let posts = [
-    Post(id: "1", title: "Hello"),
-    Post(id: "2", title: "Bonjour"),
-    Post(id: "3", title: "Hola")
-]
+//let posts = [
+//    Post(id: "1", title: "Hello"),
+//    Post(id: "2", title: "Bonjour"),
+//    Post(id: "3", title: "Hola")
+//]
 
 
 // https://hn.algolia.com/api
