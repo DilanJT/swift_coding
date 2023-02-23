@@ -17,6 +17,7 @@
 		FD8C0F0E29A36D4D001A7189 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8C0F0D29A36D4D001A7189 /* PostData.swift */; };
 		FD8C0F0F29A36D4D001A7189 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8C0F0D29A36D4D001A7189 /* PostData.swift */; };
 		FD8C0F1029A36D4D001A7189 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8C0F0D29A36D4D001A7189 /* PostData.swift */; };
+		FD9DD92829A7830800814039 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9DD92729A7830800814039 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		FD8C0EFD29A365A4001A7189 /* HackerNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsUITests.swift; sourceTree = "<group>"; };
 		FD8C0EFF29A365A4001A7189 /* HackerNewsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FD8C0F0D29A36D4D001A7189 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
+		FD9DD92729A7830800814039 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				FD8C0F0D29A36D4D001A7189 /* PostData.swift */,
+				FD9DD92729A7830800814039 /* NetworkManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD9DD92829A7830800814039 /* NetworkManager.swift in Sources */,
 				FD8C0EE529A365A3001A7189 /* ContentView.swift in Sources */,
 				FD8C0F0E29A36D4D001A7189 /* PostData.swift in Sources */,
 				FD8C0EE329A365A3001A7189 /* HackerNewsApp.swift in Sources */,
