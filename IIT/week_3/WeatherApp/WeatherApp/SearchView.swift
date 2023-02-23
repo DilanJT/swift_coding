@@ -10,20 +10,21 @@ import SwiftUI
 struct SearchView: View {
     @State var cityName: String = ""
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Weather").font(.largeTitle).bold()
-            HStack {
-                TextField("City name", text: $cityName)
-                
-                Button{
-                    print("Button pressed")
-                }label: {
-                    Text("Search")
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("Weather").font(.largeTitle).bold()
+                HStack {
+                    TextField("City name", text: $cityName)
                     
+                    Button{
+                        print("Button pressed")
+                    }label: {
+                        Text("Search")
+                        
+                    }
                 }
-            }
-            
-            ScrollView {
+                
+                
                 HStack(){
                     WeatherCardView(
                         image: "aqi.low",
@@ -68,10 +69,13 @@ struct SearchView: View {
                         subTitle: "Clouds(%)"
                     )
                     
+                    Spacer()
+                    
                 }
-            }
-            
-        }.padding([.leading, .trailing], 30)
+                
+                
+            }.padding([.leading, .trailing], 30)
+        }
         
     }
 }

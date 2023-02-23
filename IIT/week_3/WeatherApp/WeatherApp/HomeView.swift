@@ -21,7 +21,7 @@ struct HomeView: View {
                 
                 Text("\(Date().formatted())")
                 
-                Text("\(weatherData.temp)")
+                Text("\(weatherData.formattedTemp)")
                     .font(.system(size:70))
                     .bold()
                 

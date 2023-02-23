@@ -11,6 +11,7 @@ struct WeatherDTO: Decodable {
     let name: String
     let weather: [WeatherSummary]
     let main: MainWeatherData
+    let visibility: Int
     let wind: WindData
     let clouds: CloudsData
     
@@ -24,7 +25,7 @@ struct MainWeatherData: Decodable {
     
     //
     enum CodingKeys: String, CodingKey {
-        case temp = "temp"
+        case temp
         case pressure
         case humidity
         case feelsLike = "feels_like"
@@ -32,7 +33,7 @@ struct MainWeatherData: Decodable {
 }
 
 struct WeatherSummary : Decodable {
-    let description : Double
+    let description : String
 }
 
 struct WindData: Decodable {
