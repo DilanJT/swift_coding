@@ -15,10 +15,13 @@ struct ContentView: View {
         NavigationView {
             // For every single post in posts array Iam going to use Text component to pass the title propoerty of each post object
             List(networkManager.posts) { post in
-                HStack {
-                    Text(String(post.points))
-                    Text(post.title)
+                NavigationLink(destination: DetailView(url: post.url)) {
+                    HStack {
+                        Text(String(post.points))
+                        Text(post.title)
+                    }
                 }
+                
             }.navigationTitle("Hacker News")
             
         }
