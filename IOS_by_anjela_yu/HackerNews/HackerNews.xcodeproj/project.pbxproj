@@ -19,6 +19,7 @@
 		FD8C0F1029A36D4D001A7189 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8C0F0D29A36D4D001A7189 /* PostData.swift */; };
 		FD9DD92829A7830800814039 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9DD92729A7830800814039 /* NetworkManager.swift */; };
 		FD9DD92B29A78BDB00814039 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9DD92A29A78BDB00814039 /* DetailView.swift */; };
+		FD9DD92D29A7927700814039 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9DD92C29A7927700814039 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		FD8C0F0D29A36D4D001A7189 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		FD9DD92729A7830800814039 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FD9DD92A29A78BDB00814039 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		FD9DD92C29A7927700814039 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			children = (
 				FD8C0EE429A365A3001A7189 /* ContentView.swift */,
 				FD9DD92A29A78BDB00814039 /* DetailView.swift */,
+				FD9DD92C29A7927700814039 /* WebView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				FD9DD92829A7830800814039 /* NetworkManager.swift in Sources */,
 				FD8C0EE529A365A3001A7189 /* ContentView.swift in Sources */,
 				FD8C0F0E29A36D4D001A7189 /* PostData.swift in Sources */,
+				FD9DD92D29A7927700814039 /* WebView.swift in Sources */,
 				FD9DD92B29A78BDB00814039 /* DetailView.swift in Sources */,
 				FD8C0EE329A365A3001A7189 /* HackerNewsApp.swift in Sources */,
 			);
