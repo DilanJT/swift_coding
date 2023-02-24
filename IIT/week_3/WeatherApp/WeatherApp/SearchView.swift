@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @StateObject var networkStore = NetworkStore()
     @State var cityName: String = ""
     var body: some View {
         ScrollView {
@@ -17,6 +18,11 @@ struct SearchView: View {
                     TextField("City name", text: $cityName)
                     
                     Button{
+                        guard !cityName.isEmpty else {return}
+                        print("dev test fetching data")
+                        Task {
+                            await networkStore.fetchData(cityName: cityName)
+                        }
                         print("Button pressed")
                     }label: {
                         Text("Search")
@@ -25,52 +31,55 @@ struct SearchView: View {
                 }
                 
                 
-                HStack(){
-                    WeatherCardView(
-                        image: "aqi.low",
-                        title: "Broken Clouds",
-                        subTitle: "Cloudiness"
-                    )
-                    WeatherCardView(
-                        image: "thermometer.low",
-                        title: "26.5",
-                        subTitle: "Temperature"
-                    )
-                }
-                HStack{
-                    WeatherCardView(
-                        image: "humidity",
-                        title: "64.0",
-                        subTitle: "Humidity"
-                    )
-                    WeatherCardView(
-                        image: "tornado",
-                        title: "26.5",
-                        subTitle: "Temperature"
-                    )
-                }
-                HStack{
-                    WeatherCardView(
-                        image: "sun.dust.fill",
-                        title: "10000.0",
-                        subTitle: "Visibility"
-                    )
-                    WeatherCardView(
-                        image: "wind",
-                        title: "26.5",
-                        subTitle: "Wind Speed"
-                    )
-                }
-                
-                HStack{
-                    WeatherCardView(
-                        image: "cloud.fill",
-                        title: "68.0",
-                        subTitle: "Clouds(%)"
-                    )
+                if let data = networkStore.weatherData {
+
+                    HStack(){
+                        WeatherCardView(
+                            image: "aqi.low",
+                            title: "\(data.description)",
+                            subTitle: "Cloudiness"
+                        )
+                        WeatherCardView(
+                            image: "thermometer.low",
+                            title: "\(data.formattedTemp)",
+                            subTitle: "Temperature"
+                        )
+                    }
+                    HStack{
+                        WeatherCardView(
+                            image: "humidity",
+                            title: "\(data.humidity)",
+                            subTitle: "Humidity"
+                        )
+                        WeatherCardView(
+                            image: "tornado",
+                            title: "\(data.pressure)",
+                            subTitle: "Temperature"
+                        )
+                    }
+                    HStack{
+                        WeatherCardView(
+                            image: "sun.dust.fill",
+                            title: "\(data.visibility)",
+                            subTitle: "Visibility"
+                        )
+                        WeatherCardView(
+                            image: "wind",
+                            title: "\(data.windSpeed)",
+                            subTitle: "Wind Speed"
+                        )
+                    }
                     
-                    Spacer()
-                    
+                    HStack{
+                        WeatherCardView(
+                            image: "cloud.fill",
+                            title: "\(data.cloudPercentage)",
+                            subTitle: "Clouds(%)"
+                        )
+                        
+                        Spacer()
+                        
+                    }
                 }
                 
                 

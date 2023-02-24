@@ -29,6 +29,9 @@ struct HomeView: View {
                     .font(.title)
                     .bold()
                 
+            }else {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
             }
         }
         .task{
