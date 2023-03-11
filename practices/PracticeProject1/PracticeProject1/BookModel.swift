@@ -23,6 +23,10 @@ class Book : ObservableObject {
         self.readCount += 1
     }
     
+    func decrementReadCount() {
+        self.readCount -= 1
+    }
+    
     func getReadCount() -> Int {
         return readCount;
     }
