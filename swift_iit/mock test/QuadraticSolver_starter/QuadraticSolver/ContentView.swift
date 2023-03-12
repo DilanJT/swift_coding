@@ -10,12 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     //state vars for a,b,c,x1, and x2
-    @State var a: String = ""
-    @State var b: String = ""
-    @State var c: String = ""
+    @AppStorage("firstterm") var a: String = ""
+    @AppStorage("secondterm") var b: String = ""
+    @AppStorage("thirdterm") var c: String = ""
     
-    @State var x1: String = ""
-    @State var x2: String = ""
+    @AppStorage("x1") var x1: String = ""
+    @AppStorage("x2") var x2: String = ""
     //data persistence
     var body: some View {
         ScrollView {
@@ -26,16 +26,25 @@ struct ContentView: View {
                 Label("Enter the first term", systemImage: "a.circle.fill")
                 TextField("first term", text: $a)
                     .multilineTextAlignment(.center)
+                    .frame(width: UIScreen.main.bounds.width * 0.9, height: 35, alignment: .center)
+                    .border(.black)
+                    .font(.subheadline)
                 
                 Label("Enter the second term", systemImage:
                 "b.circle.fill")
                 TextField("second term", text: $b)
                     .multilineTextAlignment(.center)
+                    .frame(width: UIScreen.main.bounds.width * 0.9, height: 35, alignment: .center)
+                    .border(.black)
+                    .font(.subheadline)
                 
                 Label("Enter the third term", systemImage:
                 "c.circle.fill")
                 TextField("third term", text: $c)
                     .multilineTextAlignment(.center)
+                    .frame(width: UIScreen.main.bounds.width * 0.9, height: 35, alignment: .center)
+                    .border(.black)
+                    .font(.subheadline)
                 
                 Button() {
                     solveForX()
@@ -68,6 +77,8 @@ struct ContentView: View {
         
         self.x1 = String(format: "%.2f",x1Value)
         self.x2 = String(format: "%.2f", x2Value)
+        
+        
     }
 }
 
