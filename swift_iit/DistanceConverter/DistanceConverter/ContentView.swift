@@ -10,8 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var textFieldValue: String = ""
-    private var unit_type = "unit"
-    private var converted_value = "value"
+    @State private var unit_type = "unit"
+    @State private var converted_value = "value"
+    
+    var buttonTexts = ["Ft", "cm", "Yd", "km"]
     
     var body: some View {
         VStack {
@@ -26,34 +28,22 @@ struct ContentView: View {
                 .multilineTextAlignment(.center)
                 
             HStack {
-                Button {
-                    
-                } label: {
-                    Text("Ft")
-                }
                 
-                Button {
-                    
-                } label: {
-                    Text("cm")
-                }
-                
-                Button {
-                    
-                } label: {
-                    Text("Yd")
-                }
-                
-                Button {
-                    
-                } label: {
-                    Text("km")
+                ForEach((buttonTexts), id: \.self){ text in
+                    ButtonView(
+                        buttonText: text
+                    )
                 }
             }
             
             Text("The distance in \(unit_type) is \(converted_value)")
             
             Image("flower")
+            Button {
+                
+            }label: {
+                Text("Reset")
+            }
             
         }
         .padding()
@@ -63,5 +53,30 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct ButtonView: View {
+    
+    var buttonText: String
+    
+    var body: some View {
+        Button {
+            
+            if(buttonText == "Ft"){
+                // Ft logic
+            }else if(buttonText == "cm"){
+                // cm logic
+            }else if(buttonText == "Yd"){
+                // yd logic
+            }else if(buttonText == "km"){
+                // km logic
+            }else if(buttonText == "reset"){
+                // reset logic
+            }
+            
+        } label: {
+            Text("\(buttonText)")
+        }
     }
 }
