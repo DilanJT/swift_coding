@@ -26,8 +26,9 @@ struct ContentView: View {
             
             TextField("Distance", text: $textFieldValue)
                 .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color.black, style: StrokeStyle(lineWidth: 1.0)))
+                .overlay(RoundedRectangle(cornerRadius: 0.0).strokeBorder(Color.black, style: StrokeStyle(lineWidth: 2.0)))
                 .padding()
+                .multilineTextAlignment(.center)
             /*
                 .padding(.all, 10)
                 .frame(width: UIScreen.main.bounds.width * 0.9, height: 20)
