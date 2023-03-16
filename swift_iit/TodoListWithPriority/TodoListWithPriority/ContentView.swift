@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var speed = 5.0
     @State private var isEditing = false
     
-    @State private var todos: [TodoItem] = []
+    @AppStorage("todos") private var todos: [TodoItem] = []
     
     @State private var showView: Bool = true
     
