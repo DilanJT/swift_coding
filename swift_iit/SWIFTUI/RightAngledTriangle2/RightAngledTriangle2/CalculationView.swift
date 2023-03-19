@@ -48,6 +48,8 @@ struct CalculationView: View {
                         .pickerStyle(.wheel)
                         .onChange(of: selection) { _ in
                             displayMode = false
+                            firstTextField = ""
+                            secondTextField = ""
                         }
                         
                         

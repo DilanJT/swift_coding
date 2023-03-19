@@ -68,7 +68,6 @@ class RightAngledModel: ObservableObject {
     func findArea() {
         guard let b = Double(self.base) else {return}
         guard let a = Double(self.altitude) else {return}
-        
         let area = (b * a)/2
         self.area = String(area)
     }

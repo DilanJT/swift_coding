@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct HistoryView: View {
+    
+    @AppStorage("Base") private var baseAppStorage = ""
+    @AppStorage("Altitude") private var altitudeAppStorage
+    
+    @AppStorage("Hypotenuse") private var hypotenuseAppStorage
+    
+    @AppStorage("Area") private var calculatedAreaValue = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack {
+                
+            }
+        }
     }
 }
 
