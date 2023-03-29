@@ -20,6 +20,8 @@ struct CalculationView: View {
     @AppStorage("Area") private var AppStorageAreaValue = ""
     @AppStorage("Perimeter") private var AppStoragePremiterValue = ""
     
+    
+    
     var body: some View {
         NavigationStack {
             ScrollView {

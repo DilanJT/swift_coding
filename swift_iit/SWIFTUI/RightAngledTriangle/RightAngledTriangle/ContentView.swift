@@ -10,10 +10,6 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var triangleModel: TriangleModel = TriangleModel()
-    
-    
-    
-    
     @State var selectedEdge: Edge = Edge.altitude
     @State var showOutput: Bool = false
     
