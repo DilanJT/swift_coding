@@ -10,12 +10,13 @@ import SwiftUI
 struct PlayerListView: View {
     
     @State var players: [Player] = playersData
+    @EnvironmentObject var playersList: PlayerList
     
     var body: some View {
         VStack {
             NavigationView {
                 List() {
-                    ForEach(players) { player in
+                    ForEach(playersList.playerList) { player in
                         NavigationLink(destination: PlayerDetailView(player: player)) {
                             
                             HStack {
@@ -32,20 +33,41 @@ struct PlayerListView: View {
                         players.remove(atOffsets: indexSet)
                     }
                     
+                    
+                    
                 }
                 .navigationTitle("Top EPL Players")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        EditButton()
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button {
+                            addItemToList(player: Player(name: "Peter Scmichael", imageName: "peter", bio: "random bio"))
+                            
+                        }label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                    
+                }
                 
                 
             }
             
         }
     }
+    
+    func addItemToList(player: Player) {
+        self.playersList.addPlayer(newPlayer: player)
+    }
+    
 }
 
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerListView()
+        PlayerListView().environmentObject(PlayerList())
     }
 }

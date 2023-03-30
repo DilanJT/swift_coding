@@ -12,6 +12,7 @@ struct PlayerListViewApp: App {
     var body: some Scene {
         WindowGroup {
             PlayerListView()
+                .environmentObject(PlayerList())
         }
     }
 }
