@@ -14,28 +14,28 @@ struct NavBar: View {
            Home()
                 .tabItem{
                     
-                    Text("City")
+                    Label("City", systemImage: "magnifyingglass")
                 }
             CurrentWeatherView()
                 .tabItem {
                     
-                    Text("WeatherNow")
+                    Label("Weather Now", systemImage: "sun.max")
                 }
             
             HourlyView()
                 .tabItem{
                     
-                    Text("HourlyView")
+                    Label("Hourly Summary", systemImage: "clock.fill")
                 }
             ForecastView()
                 .tabItem {
                     
-                    Text("ForecastView")
+                    Label("Forecast", systemImage: "calendar")
                 }
             PollutionView()
                 .tabItem {
                     
-                    Text("PollutionView")
+                    Label("Pollution", systemImage: "aqi.high")
                 }
         }.onAppear {
             UITabBar.appearance().isTranslucent = false
@@ -45,3 +45,8 @@ struct NavBar: View {
         
 }
 
+struct NavBar_Preview: PreviewProvider {
+    static var previews: some View {
+        NavBar().environmentObject(ModelData())
+    }
+}
