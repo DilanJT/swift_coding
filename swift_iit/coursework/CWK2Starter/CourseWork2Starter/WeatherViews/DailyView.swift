@@ -13,16 +13,19 @@ struct DailyView: View {
     var body: some View {
         
         HStack {
-            Text("Weather icon")
+            AsyncImage(url: URL(string:
+                                    "https://openweathermap.org/img/wn/\(day.weather[0].icon)@2x.png"))
             Spacer()
             VStack {
-                Text("Weather description")
+                Text("\(day.weather[0].weatherDescription.rawValue)")
                 
-                Text("Day and 2 digit date")
+                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(day.dt))))
+                    .formatted(.dateTime.weekday().day())
+                )
                 
             }
             Spacer()
-            Text("high temp and low temp")
+            Text("\(String(format: "%.2f",day.temp.min))ºC / \(String(format: "%.2f", day.temp.max))ºC")
            
         }.padding()
     }

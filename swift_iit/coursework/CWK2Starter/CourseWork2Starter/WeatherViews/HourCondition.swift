@@ -9,16 +9,28 @@ import SwiftUI
 
 struct HourCondition: View {
     var current : Current
-  
+    
     
     var body: some View {
         HStack {
             VStack {
-                Text("This view is hourly summary for the next 48 hours for the location,\n see  Figure 3 what this view must show and build it")
-
+                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(current.dt))))
+                    .formatted(.dateTime.hour())
+                )
+                Text(Date(timeIntervalSince1970:
+                            TimeInterval(((Int)(current.dt))))
+                    .formatted(.dateTime.weekday()))
+                
+                
             }
-            Spacer()
-
+            AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(current.weather[0].icon)@2x.png"))
+            
+            HStack {
+                Text("\(String(format: "%.2f",current.temp))ºC")
+                Text("\(current.weather[0].weatherDescription.rawValue)")
+            }
+            
+            
         }.padding()
     }
 }

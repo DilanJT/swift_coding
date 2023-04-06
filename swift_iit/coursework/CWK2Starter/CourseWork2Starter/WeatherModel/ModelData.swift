@@ -2,13 +2,14 @@ import Foundation
 class ModelData: ObservableObject {
     @Published var forecast: Forecast?
     @Published  var userLocation: String = ""
+    @Published var airPollution: AirPollutionModelData?
     init() {
         self.forecast = load("london.json")
     }
     
 
     func loadData(lat: Double, lon: Double) async throws -> Forecast {
-        let url = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&units=metric&appid=YOUR API KEY HERE")
+        let url = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&units=metric&appid=85b4fd8ba41c782d11db5c52f15fcbf1")
         let session = URLSession(configuration: .default)
         
         let (data, _) = try await session.data(from: url!)
@@ -24,6 +25,31 @@ class ModelData: ObservableObject {
         } catch {
             throw error
         }
+    }
+    
+    func loadAirPollutionData() async throws {
+        guard let lat = forecast?.lat, let lon = forecast?.lon else {
+            fatalError("Couldn't find in lat & lon in forecast data.")
+        }
+        
+        let urlString = "https://api.openweathermap.org/data/2.5/air_pollution?lat=\(lat)&lon=\(lon)&appid=85b4fd8ba41c782d11db5c52f15fcbf1"
+        
+        let url = URL(string: urlString)
+        
+        let session = URLSession(configuration: .default)
+        
+        let (data, _) = try await session.data(from: url!)
+        
+        do {
+            let pollutionData = try JSONDecoder().decode(AirPollutionModelData.self, from: data)
+            print("\(pollutionData.list[0].main.aqi)")
+            print("\(pollutionData.list[0].components.co)")
+        } catch {
+            throw error
+        }
+        
+        
+        
     }
     
     func load<Forecast: Decodable>(_ filename: String) -> Forecast {

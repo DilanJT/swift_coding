@@ -16,7 +16,6 @@ struct SearchView: View {
     @Binding var userLocation: String
     
     var body: some View {
-        Spacer()
         ZStack {
             Color.teal
                 .ignoresSafeArea()
@@ -34,6 +33,10 @@ struct SearchView: View {
                         
                         if let lat = placemarks?.first?.location?.coordinate.latitude,
                            let lon = placemarks?.first?.location?.coordinate.longitude {
+                            Task{
+                                let _ = try await modelData.loadData(lat: lat, lon: lon)
+                                userLocation = location
+                            }
 
                             isSearchOpen.toggle()
                             print(lat)
@@ -58,7 +61,13 @@ struct SearchView: View {
             
             
         }// Zstack
-        Spacer()
     }// Some
     
 } //View
+
+
+//struct SearchView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        SearchView().environmentObject(ModelData())
+//    }
+//}

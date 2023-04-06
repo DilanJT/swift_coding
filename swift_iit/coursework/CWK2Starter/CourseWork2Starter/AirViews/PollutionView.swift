@@ -10,6 +10,7 @@ import SwiftUI
 struct PollutionView: View {
     
     // @EnvironmentObject and @State varaibles here
+    @EnvironmentObject var modelData: ModelData
     
     var body: some View {
         
@@ -28,6 +29,11 @@ struct PollutionView: View {
             
             .foregroundColor(.black)
             .shadow(color: .black,  radius: 0.5)
+            .onAppear {
+                Task {
+                    try await modelData.loadAirPollutionData()
+                }
+            }
             
         }.ignoresSafeArea(edges: [.top, .trailing, .leading])
     }
@@ -37,6 +43,6 @@ struct PollutionView: View {
 
 struct PollutionView_Previews: PreviewProvider {
     static var previews: some View {
-         PollutionView()
+        PollutionView().environmentObject(ModelData())
     }
 }

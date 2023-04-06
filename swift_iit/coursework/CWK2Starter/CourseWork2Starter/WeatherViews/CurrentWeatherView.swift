@@ -20,7 +20,7 @@ struct CurrentWeatherView: View {
                 .ignoresSafeArea()
             VStack {
                 
-                Text("This is the CurrentWeatherView that displays detailed\n current weather with icons as shown in Figure 2.\n Build this view here")
+                Text("\(modelData.userLocation)")
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
@@ -29,12 +29,13 @@ struct CurrentWeatherView: View {
                 VStack{
 
         //          Temperature Info
-                    VStack {
+                    VStack (spacing: 20){
                         Text("\((Int)(modelData.forecast!.current.temp))ºC")
                             .padding()
                             .font(.largeTitle)
                         HStack {
                             AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(modelData.forecast!.current.weather[0].icon)@2x.png" ))
+                                .frame(width: 70, height: 70)
                             
                             Text(modelData.forecast!.current.weather[0].weatherDescription.rawValue.capitalized)
                                 .foregroundColor(.black)
@@ -49,18 +50,36 @@ struct CurrentWeatherView: View {
                             .foregroundColor(.black)
                         
                         HStack {
-                            Text("")
-                            Text("")
+                            Text("Wind Speed:\(String(format: "%.2f", modelData.forecast!.current.windSpeed))")
+                            
+                            Text("Direction: \(convertDegToCardinal(deg:modelData.forecast!.current.windDeg))")
                         }
                         
                         HStack {
-                            Text("")
-                            Text("")
+                            Text("Humidity: \(modelData.forecast!.current.humidity)")
+                            Text("Presure: \(modelData.forecast!.current.pressure)")
                         }
                         
                         HStack {
-                            Text("")
-                            Text("")
+                            Label{
+                                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast!.current.sunset ?? 0))))
+                                    .formatted(.dateTime.hour().minute())
+                                )
+                                
+                            }icon: {
+                                Image(systemName: "sun.and.horizon.fill")
+                                    .foregroundColor(.yellow)
+                            }
+                            
+                            Label{
+                                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast!.current.sunrise ?? 0))))
+                                    .formatted(.dateTime.hour().minute())
+                                )
+                                
+                            }icon: {
+                                Image(systemName: "sun.and.horizon.fill")
+                                    .foregroundColor(.yellow)
+                            }
                         }
                     }.padding()
                     

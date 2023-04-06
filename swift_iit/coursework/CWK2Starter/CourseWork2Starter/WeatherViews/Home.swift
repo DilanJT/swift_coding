@@ -80,6 +80,7 @@ struct Home: View {
                 
                 HStack {
                     AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(modelData.forecast!.current.weather[0].icon)@2x.png" ))
+                        .frame(width: 70, height: 70)
                     Text("\(modelData.forecast!.current.weather[0].weatherDescription.rawValue)")
                 }
                 
@@ -95,7 +96,7 @@ struct Home: View {
             .onAppear {
                 Task.init {
                     self.userLocation = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)
-                    
+                    self.modelData.userLocation = userLocation
                 }
                 
         }
