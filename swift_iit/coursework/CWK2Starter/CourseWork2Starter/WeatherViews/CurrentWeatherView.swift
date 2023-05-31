@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct CurrentWeatherView: View {
+    
     @EnvironmentObject var modelData: ModelData
     
-    @State var locationString: String = "No location"
+    @State var locationString: String = "Location loading..."
+    
+    
     
     var body: some View {
         ZStack {
@@ -18,80 +21,103 @@ struct CurrentWeatherView: View {
             Image("background2")
                 .resizable()
                 .ignoresSafeArea()
-            VStack {
-                
-                Text("\(modelData.userLocation)")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center)
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                .blur(radius: 7)
+            
 
-                VStack{
-
-        //          Temperature Info
-                    VStack (spacing: 20){
-                        Text("\((Int)(modelData.forecast!.current.temp))ºC")
-                            .padding()
-                            .font(.largeTitle)
-                        HStack {
-                            AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(modelData.forecast!.current.weather[0].icon)@2x.png" ))
-                                .frame(width: 70, height: 70)
-                            
-                            Text(modelData.forecast!.current.weather[0].weatherDescription.rawValue.capitalized)
-                                .foregroundColor(.black)
-                        }
-                        
-                        HStack {
-                            Text("")
-                            Text("")
-                        }
-
-                        Text("Feels Like: \((Int)(modelData.forecast!.current.feelsLike))ºC")
-                            .foregroundColor(.black)
-                        
-                        HStack {
-                            Text("Wind Speed:\(String(format: "%.2f", modelData.forecast!.current.windSpeed))")
-                            
-                            Text("Direction: \(convertDegToCardinal(deg:modelData.forecast!.current.windDeg))")
-                        }
-                        
-                        HStack {
-                            Text("Humidity: \(modelData.forecast!.current.humidity)")
-                            Text("Presure: \(modelData.forecast!.current.pressure)")
-                        }
-                        
-                        HStack {
-                            Label{
-                                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast!.current.sunset ?? 0))))
-                                    .formatted(.dateTime.hour().minute())
-                                )
-                                
-                            }icon: {
-                                Image(systemName: "sun.and.horizon.fill")
-                                    .foregroundColor(.yellow)
-                            }
-                            
-                            Label{
-                                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast!.current.sunrise ?? 0))))
-                                    .formatted(.dateTime.hour().minute())
-                                )
-                                
-                            }icon: {
-                                Image(systemName: "sun.and.horizon.fill")
-                                    .foregroundColor(.yellow)
-                            }
-                        }
-                    }.padding()
+                VStack (){
                     
- 
-
-                }
+                    Text("\(locationString)")
+                        .font(.title)
+                        .foregroundColor(.black)
+                        .shadow(color: .black, radius: 0.5)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    
+                    
+                    
+                    
+                    ScrollView {
+                        VStack (spacing: 30){
+                            
+                            Text("\((Int)(modelData.forecast!.current.temp))ºC")
+                                .padding()
+                                .font(.system(size: 60))
+                                .foregroundColor(modelData.forecast!.current.feelsLike < 15 ? Color(red: 30.0/255, green: 41.0/255, blue: 193.0/255) : Color(red: 186.0/255, green: 75.0/255, blue: 15.0/255))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(modelData.forecast!.current.feelsLike < 15 ? Color.blue.opacity(0.1) : Color.orange.opacity(0.1))
+                                )
+                                
+                            
+                            HStack{
+                                AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(modelData.forecast!.current.weather[0].icon)@2x.png"))
+                                    .frame(width: 70, height: 70)
+                                Text("\(modelData.forecast!.current.weather[0].weatherDescription.rawValue)")
+                                    .padding()
+                                    .font(.title2)
+                                    .foregroundColor(.black)
+                                    .shadow(color: .black, radius: 0.5)
+                            }
+                            
+                            // color changes to orange if the temperature > 15
+                            Text("Feels Like: \((Int)(modelData.forecast!.current.feelsLike))ºC").padding()
+                                .foregroundColor(modelData.forecast!.current.feelsLike < 15 ? Color(red: 30.0/255, green: 41.0/255, blue: 193.0/255) : Color(red: 186.0/255, green: 75.0/255, blue: 15.0/255))
+                                .font(Font.custom("Helvetica", size: 24))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .foregroundColor(modelData.forecast!.current.feelsLike < 15 ? Color.blue.opacity(0.1) : Color.orange.opacity(0.1))
+                                )
+                            
+                            HStack {
+                                
+                                Text("Wind Speed: \(String(format: "%.0f", modelData.forecast!.current.windSpeed)) m/s")
+                                Text("Direction: \(convertDegToCardinal(deg:modelData.forecast!.current.windDeg))")
+                                
+                            }
+                            
+                            
+                            
+                            HStack {
+                                
+                                Text("Humidity: \(modelData.forecast!.current.humidity) %")
+                                Spacer()
+                                Text("Pressure: \(modelData.forecast!.current.pressure) hPg")
+                            }.padding()
+                            
+                            
+                            HStack {
+                                
+                                Label {
+                                    Text("\(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast?.current.sunrise ?? 0)))).formatted(.dateTime.hour().minute()))")
+                                } icon: {
+                                    Image(systemName: "sun.and.horizon.fill").foregroundColor(.yellow)
+                                }
+                                
+                                Label {
+                                    Text("\(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast?.current.sunset ?? 0)))).formatted(.dateTime.hour().minute()))")
+                                } icon: {
+                                    Image(systemName: "sun.and.horizon.fill").foregroundColor(.yellow)
+                                }
+                                
+                            }.padding()
                 
-            }
-            .foregroundColor(.black)
+                        }.padding().font(.title2)
+                    }
+                    
+                    
+                }
+                .foregroundColor(.black)
             .shadow(color: .black,  radius: 0.5)
             
-        }.ignoresSafeArea(edges: [.top, .trailing, .leading])
+            
+        }.onAppear {
+            Task.init {
+                self.locationString = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)
+                
+            }
+            
+    }
+
     }
 }
 

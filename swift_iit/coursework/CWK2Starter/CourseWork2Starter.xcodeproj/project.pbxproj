@@ -25,7 +25,7 @@
 		25AE539E29C3CD0E0024DED1 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE539D29C3CD0E0024DED1 /* Home.swift */; };
 		25AE53A029C3CD150024DED1 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE539F29C3CD150024DED1 /* CurrentWeatherView.swift */; };
 		25AE53A329C3CD460024DED1 /* PollutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE53A229C3CD460024DED1 /* PollutionView.swift */; };
-		2828995B29D6DA1500D50D75 /* AirPollutionModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2828995A29D6DA1500D50D75 /* AirPollutionModelData.swift */; };
+		297CE98629D6DA020050D508 /* AirPollutionModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297CE98529D6DA020050D508 /* AirPollutionModelData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +48,7 @@
 		25AE539D29C3CD0E0024DED1 /* Home.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		25AE539F29C3CD150024DED1 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		25AE53A229C3CD460024DED1 /* PollutionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollutionView.swift; sourceTree = "<group>"; };
-		2828995A29D6DA1500D50D75 /* AirPollutionModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionModelData.swift; sourceTree = "<group>"; };
+		297CE98529D6DA020050D508 /* AirPollutionModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionModelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +147,7 @@
 		25AE53A429C3CD9B0024DED1 /* AirModel */ = {
 			isa = PBXGroup;
 			children = (
-				2828995A29D6DA1500D50D75 /* AirPollutionModelData.swift */,
+				297CE98529D6DA020050D508 /* AirPollutionModelData.swift */,
 			);
 			path = AirModel;
 			sourceTree = "<group>";
@@ -226,7 +226,7 @@
 				25AE539829C3CCF90024DED1 /* SearchView.swift in Sources */,
 				25AE539629C3CCF20024DED1 /* DailyView.swift in Sources */,
 				25AE538C29C3CC710024DED1 /* Structures.swift in Sources */,
-				2828995B29D6DA1500D50D75 /* AirPollutionModelData.swift in Sources */,
+				297CE98629D6DA020050D508 /* AirPollutionModelData.swift in Sources */,
 				25AE539429C3CCEA0024DED1 /* NavBar.swift in Sources */,
 				25AE538829C3CC580024DED1 /* LocationHelper.swift in Sources */,
 				25AE537729C3CB4C0024DED1 /* ContentView.swift in Sources */,

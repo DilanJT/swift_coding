@@ -9,6 +9,10 @@ import SwiftUI
 
 struct NavBar: View {
     
+    @EnvironmentObject var modelData: ModelData
+    
+    // Tab view accent color changes to orange if the temp is > 50 otherwise its blue
+    
     var body: some View {
         TabView{
            Home()
@@ -19,33 +23,34 @@ struct NavBar: View {
             CurrentWeatherView()
                 .tabItem {
                     
-                    Label("Weather Now", systemImage: "sun.max")
+                    Label("WeatherNow", systemImage: "sun.max")
                 }
             
             HourlyView()
                 .tabItem{
                     
-                    Label("Hourly Summary", systemImage: "clock.fill")
+                    Label("HourlyView", systemImage: "clock.fill")
                 }
             ForecastView()
                 .tabItem {
                     
-                    Label("Forecast", systemImage: "calendar")
+                    Label("ForecastView", systemImage: "calendar")
                 }
             PollutionView()
                 .tabItem {
                     
-                    Label("Pollution", systemImage: "aqi.high")
+                    Label("PollutionView", systemImage: "aqi.high")
                 }
         }.onAppear {
             UITabBar.appearance().isTranslucent = false
         }
+        .accentColor(modelData.forecast!.current.temp < 15 ? Color(.blue) : Color(.orange))
         
     }
         
 }
 
-struct NavBar_Preview: PreviewProvider {
+struct NavBar_Previews: PreviewProvider {
     static var previews: some View {
         NavBar().environmentObject(ModelData())
     }

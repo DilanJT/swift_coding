@@ -16,58 +16,119 @@ struct SearchView: View {
     @Binding var userLocation: String
     
     var body: some View {
+
         ZStack {
-            Color.teal
-                .ignoresSafeArea()
+            
+            
+//            Blur(style: .systemUltraThinMaterial)
+//                            .ignoresSafeArea()
+//            RoundedRectangle(cornerRadius: 20)
+//                                    .fill(Color.teal)
+//                                    .opacity(0.8)
+//                                    .ignoresSafeArea()
+            
+            // color changes to orange if the temperature > 15
+            
+            if(modelData.forecast!.current.feelsLike < 15){
+                Color.blue.opacity(0.3)
+                    .background(.ultraThinMaterial.opacity(0.7))
+                    .ignoresSafeArea()
+            }else{
+                Color.orange.opacity(0.3)
+                    .background(.ultraThinMaterial.opacity(0.7))
+                    .ignoresSafeArea()
+            }
             
             VStack{
-                Text("This is the search view that will allow user to enter new location and the .OnCommit should handle conversion to geo coords and then reversed to get the location if it exists. \n The geo coords are then used to update the weather data for the new location and all views should be updated in rdeal time.\n There is no code to do this - you must create this code.")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                TextField("Enter New Location", text: self.$location, onCommit: {
-                     
-                    CLGeocoder().geocodeAddressString(location) { (placemarks, error) in
-
-                        
-                        if let lat = placemarks?.first?.location?.coordinate.latitude,
-                           let lon = placemarks?.first?.location?.coordinate.longitude {
-                            Task{
-                                let _ = try await modelData.loadData(lat: lat, lon: lon)
-                                userLocation = location
-                            }
-
-                            isSearchOpen.toggle()
-                            print(lat)
-                            print(lon)
-                        }
-                        
-                        
-                    }//GEOCorder
-                } //Commit
-                          
-                )// TextField
-                .padding(10)
-                .shadow(color: .blue, radius: 10)
-                .cornerRadius(10)
-                .fixedSize()
-                .font(.custom("Ariel", size: 26))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                //.background(Color("background"))
-                .cornerRadius(15) // TextField
                 
-            }//VStak
+                HStack {
+                    TextField("Enter New Location", text: self.$location, onCommit: {
+                         
+                        CLGeocoder().geocodeAddressString(location) { (placemarks, error) in
+
+                            
+                            if let lat = placemarks?.first?.location?.coordinate.latitude,
+                               let lon = placemarks?.first?.location?.coordinate.longitude {
+
+                                Task{
+                                    let _ = try await modelData.loadData(lat: lat, lon: lon)
+                                    userLocation = location
+                                }
+                                
+                                isSearchOpen.toggle()
+                            }
+                            
+                            
+                        }
+                    }
+                              
+                    )
+                    .padding(10)
+                    .shadow(color: .blue, radius: 10)
+                    .cornerRadius(10)
+                    .fixedSize()
+                    .font(.custom("Ariel", size: 26))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .cornerRadius(15)
+                    
+                    
+                    Button(action: {
+                        CLGeocoder().geocodeAddressString(location) { (placemarks, error) in
+                            if let lat = placemarks?.first?.location?.coordinate.latitude,
+                               let lon = placemarks?.first?.location?.coordinate.longitude {
+                                Task{
+                                    let _ = try await modelData.loadData(lat: lat, lon: lon)
+                                    userLocation = location
+                                }
+                                isSearchOpen.toggle()
+                            }
+                        }
+                    }) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.white)
+                            .font(.system(size: 26))
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(modelData.forecast!.current.temp < 15 ? Color.blue.opacity(0.7) : Color.orange.opacity(0.7))
+                                    .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
+                            )
+                    }
+                }
+                
+                
+                Button(action: {
+                                self.isSearchOpen.toggle()
+                            }, label: {
+                                Text("Cancel")
+                                    .font(.title2)
+                            })
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(modelData.forecast!.current.temp < 15 ? Color.blue.opacity(0.7) : Color.orange.opacity(0.7))
+                                    .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
+                            )
+                
+            }
             
             
-        }// Zstack
-    }// Some
+        }
+        
+        
+    }
     
-} //View
+}
 
+// Custom blur effect
+struct Blur: UIViewRepresentable {
+    var style: UIBlurEffect.Style = .systemUltraThinMaterial
 
-//struct SearchView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        SearchView().environmentObject(ModelData())
-//    }
-//}
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: style))
+        return view
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {}
+}

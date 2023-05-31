@@ -74,7 +74,7 @@ struct Weather: Codable {
         case icon
     }
 }
-
+// MARK: - Main
 enum Main: String, Codable {
     case clear = "Clear"
     case clouds = "Clouds"
@@ -92,7 +92,7 @@ enum Main: String, Codable {
     case drizzle = "Drizzle"
     case thunderstorm = "Thunderstorm"
 }
-
+// MARK: - Description
 enum Description: String, Codable {
     case brokenClouds = "broken clouds"
     case clearSky = "clear sky"

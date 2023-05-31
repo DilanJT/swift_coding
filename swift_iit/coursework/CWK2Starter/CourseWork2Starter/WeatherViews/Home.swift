@@ -16,97 +16,127 @@ struct Home: View {
     
     
     var body: some View {
+        
         ZStack {
             Image("background2")
                 .resizable()
                 .ignoresSafeArea()
-            VStack (spacing: 20){
+                .blur(radius: 7)
+            VStack {
                 
-    //            Text("This is the initial view when the app launches, that must show  weather data as in Figure 1.\nInitial data is loaded from file on launch and a change of location should should update the weather data.\nBuild this view so that it mirrors this image")
-    //                .font(.subheadline)
-    //                .fontWeight(.semibold)
-    //                .multilineTextAlignment(.center)
-    //                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-    //            Text("Refer to Figure 1 for weather elements that must be rendered.")
-    //                .font(.subheadline)
-    //                .fontWeight(.semibold)
-    //                .multilineTextAlignment(.center)
-    //                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 Button {
                     self.isSearchOpen.toggle()
                 } label: {
-                    Text("Change Location")
-                        .bold()
-                        .font(.system(size: 30))
+                    HStack (spacing: 8){
+                            Image(systemName: "location.fill")
+                            .font(.system(size: 24))
+//                                .foregroundColor(.white)
+                            Text("Change Location")
+                                .bold()
+                                .font(.system(size: 30))
+//                                .foregroundColor(.white)
+                        }
+                    .padding(.vertical, 12)
+                        .padding(.horizontal, 16)
+                        .foregroundColor(.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(modelData.forecast!.current.temp < 15 ? Color.blue.opacity(0.7) : Color.orange.opacity(0.7))
+                                .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
+                        )
                 }
                 .sheet(isPresented: $isSearchOpen) {
                     SearchView(isSearchOpen: $isSearchOpen, userLocation: $userLocation)
+                        .background(BackgroundClearView())
+                }.padding()
+                    
+                    
+                
+                ScrollView {
+                    VStack{
+                        
+                        Text(userLocation)
+                            .font(.title)
+                            .foregroundColor(.black)
+                            .shadow(color: .black, radius: 0.5)
+                            .multilineTextAlignment(.center)
+                        
+                        Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast?.current.dt ?? 0))))
+                            .formatted(.dateTime.year().hour().month().day()))
+                        .padding()
+                        .font(.largeTitle)
+                        .foregroundColor(.black)
+                        .shadow(color: .black, radius: 1)
+                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 20, trailing: 10))
+                        
+                        Spacer()
+                        
+                        Text("Temp: \((Int)(modelData.forecast!.current.temp))ºC")
+                            .padding()
+                            .font(.title2)
+                            .shadow(color: .black, radius: 0.5)
+                            .foregroundColor(modelData.forecast!.current.feelsLike < 15 ? Color(red: 30.0/255, green: 41.0/255, blue: 193.0/255) : Color(red: 186.0/255, green: 75.0/255, blue: 15.0/255))
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .foregroundColor(modelData.forecast!.current.feelsLike < 15 ? Color.blue.opacity(0.1) : Color.orange.opacity(0.1))
+                            )
+                        
+                        Text("Humitidy: \((Int)(modelData.forecast!.current.humidity))%")
+                            .padding()
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .shadow(color: .black, radius: 0.5)
+                        
+                        Text("Pressure: \((Int)(modelData.forecast!.current.pressure)) hpa")
+                            .padding()
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .shadow(color: .black, radius: 0.5)
+                        
+                        HStack{
+                            AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(modelData.forecast!.current.weather[0].icon)@2x.png"))
+                                .frame(width: 70, height: 70)
+                            Text("\(modelData.forecast!.current.weather[0].weatherDescription.rawValue)")
+                                .padding()
+                                .font(.title2)
+                                .foregroundColor(.black)
+                                .shadow(color: .black, radius: 0.5)
+                        }
+                        
+                        Spacer()
+                    }
                 }
-                .padding()
-                
-                
-                Text(userLocation)
-                    .font(.title)
-                    .foregroundColor(.black)
-                    .shadow(color: .black, radius: 0.5)
-                    .multilineTextAlignment(.center)
-                
-                Text(Date(timeIntervalSince1970: TimeInterval(((Int)(modelData.forecast?.current.dt ?? 0))))
-                    .formatted(.dateTime.year().hour().month().day()))
-                .padding()
-                .font(.largeTitle)
-                .foregroundColor(.black)
-                .shadow(color: .black, radius: 1)
-                
-                Spacer()
-                
-                Text("Temp: \((Int)(modelData.forecast!.current.temp))ºC")
-                    .padding()
-                    .font(.title2)
-                    .foregroundColor(.black)
-                    .shadow(color: .black, radius: 0.5)
-                
-                Text("Humidity: \((Int)(modelData.forecast!.current.humidity))%")
-                    .padding()
-                    .font(.title2)
-                    .foregroundColor(.black)
-                    .shadow(color: .black, radius: 0.5)
-                
-                Text("Pressure: \((Int)(modelData.forecast!.current.pressure))hPa")
-                    .padding()
-                    .font(.title2)
-                    .foregroundColor(.black)
-                    .shadow(color: .black, radius: 0.5)
-                
-                HStack {
-                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(modelData.forecast!.current.weather[0].icon)@2x.png" ))
-                        .frame(width: 70, height: 70)
-                    Text("\(modelData.forecast!.current.weather[0].weatherDescription.rawValue)")
-                }
-                
-                Text("The tab bar navigation must be re-engineered\n to mirror what has been shown in all the images.")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 
                 
                 
-                Spacer()
+                
+                
             }
             .onAppear {
                 Task.init {
                     self.userLocation = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)
                     self.modelData.userLocation = userLocation
+         
                 }
-                
+            }
         }
-        }
-        
     }
 }
 
-struct Home_Preview: PreviewProvider {
+struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home().environmentObject(ModelData())
     }
+}
+
+struct BackgroundClearView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView()
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
 }

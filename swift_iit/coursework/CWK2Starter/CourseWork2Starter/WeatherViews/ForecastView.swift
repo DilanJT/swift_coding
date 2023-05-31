@@ -9,27 +9,34 @@ import SwiftUI
 
 struct ForecastView: View {
     @EnvironmentObject var modelData: ModelData
-    @State var locationString: String = "No location"
+    @State var locationString: String = "Location loading..."
+    
     var body: some View {
         
-        VStack{
-            Text("This is the ForeCastView that displays daily weather summary for next 7 days with icons as per Figure 4.\n Build this view here")
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
-                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-
-            List{
-                ForEach(modelData.forecast!.daily) { day in
-                    DailyView(day: day)
+        ZStack {
+            Image("background2")
+                .resizable()
+                .ignoresSafeArea()
+                .blur(radius: 7)
+            
+            VStack{
+                Text("\(locationString)").font(.title)
+                    .foregroundColor(.black)
+                    .shadow(color: .black, radius: 0.5)
+                    .padding(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
+                List{
+                    ForEach(modelData.forecast!.daily) { day in
+                        DailyView(day: day)
+                    }
+                    .listRowBackground(modelData.forecast!.current.temp < 15 ? Color(.blue).opacity(0.2) : Color(.orange).opacity(0.2))
+                    
                 }
+                .scrollContentBackground(.hidden)
             }
         }
-
-        .onAppear {
+        .onAppear{
             Task.init {
                 self.locationString = await getLocFromLatLong(lat: modelData.forecast!.lat, lon: modelData.forecast!.lon)
-               
             }
         }
     }

@@ -2,37 +2,46 @@
 //  AirPollutionModelData.swift
 //  CourseWork2Starter
 //
-//  Created by Dilan Jayamanne on 2023-03-31.
+//  Created by Dilan Jayamanne on 02/04/23.
 //
 
 import Foundation
 
+// MARK: - AirPollutionModelData
 struct AirPollutionModelData: Codable {
     let coord: Coord
-    let list: [AirPollutionList]
+    let list: [AirPollutionDataList]
 }
 
-struct Coord: Codable {
-    let lon: Double
-    let lan: Double
+// MARK: - Coord
+struct Coord:Codable{
+    let lon : Double
+    let lat : Double
+    
 }
 
-struct AirPollutionList: Codable {
+
+// MARK: - AirPollutionDataList
+struct AirPollutionDataList:Codable {
     let dt: Int
-    let main: AirMain
+    let main: AirPollutionDataMain
     let components: AirPollutionDataComponents
 }
 
-struct AirMain: Codable {
-    let aqi: Int
+
+// MARK: - AirPollutionDataMain
+struct AirPollutionDataMain:Codable {
+    let aqi:Int
 }
 
-struct AirPollutionDataComponents: Codable {
-    let co: Double
-    let no: Double
-    let o3: Double
-    let so2: Double
-    let pm2_5: Double
-    let pm10: Double
-    let nh3: Double
+// MARK: - AirPollutionDataComponents
+struct AirPollutionDataComponents:Codable {
+    let co:Double
+    let no:Double
+    let no2:Double
+    let o3:Double
+    let so2:Double
+    let pm2_5:Double
+    let pm10:Double
+    let nh3:Double
 }
